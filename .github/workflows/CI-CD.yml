@@ -36,6 +36,6 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          script: echo ${{ secrets.GITHUB_TOKEN }} | sudo docker login docker.pkg.github.com -u fernando --password-stdin && sudo docker rm -f petclinic && sudo docker run petclinic -d -p 8081:8080 docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws/petclinic:latest
+          script: echo ${{ secrets.GITHUB_TOKEN }} | sudo docker login docker.pkg.github.com -u fernando --password-stdin && sudo docker run petclinic -d -p 8081:8080 docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws/petclinic:latest
           
           
