@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8  
-      - name: Build, Test and Publish package (.jar file) to GitHub
+      - name: Build & Test project
         run: mvn -B clean package
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -26,16 +26,16 @@ jobs:
           login-server: docker.pkg.github.com
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push image to GitHub
+      - name: Build & push Docker image to GitHub
         run: |
           docker build . -t docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws/petclinic:latest
           docker push docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws/petclinic:latest          
-      - name: Run Docker in EC2
+      - name: Run Docker container in EC2
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          script: whoami
+          script: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u fernando --password-stdin
           
           
