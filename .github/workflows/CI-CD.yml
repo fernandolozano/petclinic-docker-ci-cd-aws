@@ -23,10 +23,10 @@ jobs:
       - uses: azure/docker-login@v1
         name: Login to Docker repository
         with:
-          login-server: docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws
-          username: fernandolozano
+          login-server: docker.pkg.github.com
+          username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push image to GitHub
         run: |
-          docker build . -t docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws:${{ github.sha }}
-          docker push docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws:${{ github.sha }}
+          docker build . -t docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws/petclinic:latest
+          docker push docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws/petclinic:latest
