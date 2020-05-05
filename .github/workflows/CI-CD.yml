@@ -31,11 +31,11 @@ jobs:
           docker build . -t docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws/petclinic:latest
           docker push docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws/petclinic:latest          
       - name: Run Docker in EC2
-        uses: garygrossgarten/github-action-ssh@release
+        uses: appleboy/ssh-action@master
         with:
-          command: sudo touch fernando1.txt
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          passphrase: ${{ secrets.PASSWORD }}
+          password: ${{ secrets.PASSWORD }}
+          script: whoami
           
           
