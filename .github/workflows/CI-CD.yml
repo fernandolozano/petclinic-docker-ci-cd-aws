@@ -30,3 +30,9 @@ jobs:
         run: |
           docker build . -t docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws/petclinic:latest
           docker push docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws/petclinic:latest
+      - name: Run Docker in EC2
+        run: |
+          echo ${{ secrets.PASSWORD }} | ssh -tt ${{ secrets.USERNAME }}@${{ secrets.HOST }} "sudo touch fernando1.txt"
+                    
+          
+          
