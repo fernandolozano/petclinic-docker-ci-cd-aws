@@ -21,11 +21,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: azure/docker-login@v1
-        name: Build and push image to GitHub 
+        name: Login to Docker repository
         with:
           login-server: docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws
           username: fernandolozano
           password: ${{ secrets.GITHUB_TOKEN }}
-      - run: |
+      - name: Build and push image to GitHub
+        run: |
           docker build . -t docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws:${{ github.sha }}
           docker push docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws:${{ github.sha }}
