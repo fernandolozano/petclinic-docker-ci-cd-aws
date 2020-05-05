@@ -29,10 +29,13 @@ jobs:
       - name: Build and push image to GitHub
         run: |
           docker build . -t docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws/petclinic:latest
-          docker push docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws/petclinic:latest
+          docker push docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws/petclinic:latest          
       - name: Run Docker in EC2
-        run: |
-          echo ${{ secrets.PASSWORD }} | ssh -tt -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} "sudo touch fernando1.txt"
-                    
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: sudo touch fernando1.txt
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          passphrase: ${{ secrets.PASSWORD }}
           
           
