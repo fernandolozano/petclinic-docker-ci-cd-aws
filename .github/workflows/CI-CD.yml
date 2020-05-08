@@ -28,14 +28,14 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build & push Docker image to GitHub
         run: |
-          docker build . -t docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws/petclinic:latest
-          docker push docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws/petclinic:latest          
+          docker build . -t docker.pkg.github.com/wearearima/petclinic-docker-ci-cd-aws/petclinic:latest
+          docker push docker.pkg.github.com/wearearima/petclinic-docker-ci-cd-aws/petclinic:latest          
       - name: Run Docker container in EC2
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          script: echo ${{ secrets.GITHUB_TOKEN }} | sudo docker login docker.pkg.github.com -u fernando --password-stdin && sudo docker stop petclinic && sudo docker rm -f petclinic && sudo docker rmi docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws/petclinic && sudo docker run --name petclinic -d -p 8081:8080 docker.pkg.github.com/fernandolozano/petclinic-docker-ci-cd-aws/petclinic:latest
+          script: echo ${{ secrets.GITHUB_TOKEN }} | sudo docker login docker.pkg.github.com -u wearearima --password-stdin && sudo docker stop petclinic && sudo docker rm -f petclinic && sudo docker rmi docker.pkg.github.com/wearearima/petclinic-docker-ci-cd-aws/petclinic && sudo docker run --name petclinic -d -p 8081:8080 docker.pkg.github.com/wearearima/petclinic-docker-ci-cd-aws/petclinic:latest
           
           
